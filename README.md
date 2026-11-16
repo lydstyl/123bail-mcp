@@ -33,7 +33,7 @@ Give your AI agent (Claude Desktop, Cursor, Hermes, …) direct access to your r
   "mcpServers": {
     "123bail": {
       "command": "npx",
-      "args": ["-y", "mcp-123bail"],
+      "args": ["github:lydstyl/123bail-mcp"],
       "env": {
         "DOKIMO_URL": "https://your-dokimo-instance.example.com",
         "DOKIMO_API_KEY": "mcp_xxx"
