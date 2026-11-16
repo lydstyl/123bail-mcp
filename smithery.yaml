@@ -1,31 +1,37 @@
-# Smithery configuration for mcp-123bail
-# https://smithery.ai
+# Smithery.ai MCP Server Registry
+# https://smithery.ai/docs/config
+# Submit: https://smithery.ai/new (connect this repo)
 
-server:
-  display_name: "123bail / Dokimo — Rental Management"
-  short_description: "MCP server for Dokimo/123bail rental management: leases, tenants, payments, receipt PDFs"
-  long_description: |
-    MCP server for 123bail / Dokimo, a self-hosted rental management app.
-    Exposes tools to list landlords, properties and tenants, find leases,
-    record payments, summarize rent over N months, create new leases and
-    generate rent receipt PDFs (quittances de loyer).
-    Configure DOKIMO_URL (your instance) and DOKIMO_API_KEY (mcp_… key from the app).
-  author_name: Gabriel Brun
-  author_url: https://github.com/lydstyl
-  license: MIT
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      DOKIMO_URL:
+        type: string
+        title: "Dokimo instance URL"
+        description: "Base URL of your Dokimo/123bail instance (e.g. https://your-instance.example.com:8092)"
+      DOKIMO_API_KEY:
+        type: string
+        title: "Dokimo API key"
+        description: "API key (mcp_…) created in the Dokimo app (Settings → API keys)"
+    required:
+      - DOKIMO_URL
+      - DOKIMO_API_KEY
+  commandFunction: |-
+    (config) => ({
+      command: "node",
+      args: ["dist/index.js"],
+      env: {
+        DOKIMO_URL: config.DOKIMO_URL,
+        DOKIMO_API_KEY: config.DOKIMO_API_KEY,
+      },
+    })
 
-  configuration:
-    - name: DOKIMO_URL
-      display_name: "Dokimo instance URL"
-      description: "Base URL of your Dokimo/123bail instance"
-      default_value: ""
-    - name: DOKIMO_API_KEY
-      display_name: "Dokimo API key"
-      description: "API key (mcp_…) created in the Dokimo app"
-      default_value: ""
-
-  tags:
-    - real-estate
-    - rental
-    - property-management
-    - france
+name: mcp-123bail
+displayName: 123bail / Dokimo — Rental Management
+description: |
+  MCP server for 123bail / Dokimo, a self-hosted rental management app (France).
+  10 tools: list landlords, properties and tenants, find leases, record payments,
+  summarize rent due/paid/balance over N months, create new leases (baux),
+  and generate rent receipt PDFs (quittances de loyer).
