@@ -1,0 +1,43 @@
+{
+  "name": "mcp-123bail",
+  "version": "1.0.0",
+  "description": "MCP server for 123bail / Dokimo rental management — leases, tenants, payments, receipts",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-123bail": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "smithery.yaml"
+  ],
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/index.js",
+    "start": "node dist/index.js",
+    "dev": "npm run build && node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "rental",
+    "bail",
+    "locative",
+    "landlord",
+    "quittance"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.28.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
